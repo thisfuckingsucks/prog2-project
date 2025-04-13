@@ -23,12 +23,12 @@ machine = Machine()
 machine.pos = (200,200)
 conveyor = Conveyor((600,400))
 grid.display_data()
+byte = Byte()
 
 while True:
     screen.fill(cf.background_color)
 
-    for event in pygame.event.get():
-        app_loop(event)
+    app_loop()
 
     game_scene.render_scene(screen)
 
