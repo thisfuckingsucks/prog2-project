@@ -77,10 +77,20 @@ class RectObject:
         self._rect = rect
         self.color = color
         self.radius = radius
+        self.__pos = (0, 0)
         Scene.active().add_render(self)
 
     def render(self, screen):
         pygame.draw.rect(screen, self.color, self._rect, border_radius=self.radius)
+
+    @property
+    def pos(self):
+        return self.__pos
+
+    @pos.setter
+    def pos(self, pos):
+        self.__pos = pos
+        self._rect.center = (int(pos[0]), int(pos[1]))
 
 class Byte(RectObject):
     def __init__(self):
@@ -94,13 +104,14 @@ class Byte(RectObject):
         pygame.draw.rect(screen, cf.grid_background, self._rect, border_radius=10)
         pygame.draw.rect(screen, self.color, self._rect, width=4, border_radius=10)
 
+    '''
     @property
     def pos(self):
         return self.__pos
     @pos.setter
     def pos(self, pos):
         self.__pos = pos
-        self._rect.center = (int(pos[0]), int(pos[1]))
+        self._rect.center = (int(pos[0]), int(pos[1]'''
 
 class GameObject(pygame.sprite.Sprite):
     def __init__(self, width=0, height=0, x=0, y=0, color='magenta'):

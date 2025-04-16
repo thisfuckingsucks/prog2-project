@@ -10,6 +10,7 @@ class Config:
     panel_color1 = (182, 197, 219)
     panel_color2 = (163, 179, 204)
     dark_color1 = (96, 109, 117)
+    generator1 = (223, 226, 245)
     conveyor_sprites = ["sprites/conveyor/conveyor1.png",
                         "sprites/conveyor/conveyor2.png",
                         "sprites/conveyor/conveyor3.png",

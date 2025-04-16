@@ -2,6 +2,7 @@ import pygame
 from config import Config as cf
 from sys import exit
 from game_classes2 import *
+from game_classes21 import *
 from game_func2 import *
 
 
