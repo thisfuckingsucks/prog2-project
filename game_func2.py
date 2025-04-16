@@ -37,29 +37,45 @@ def app_input(event):
 
 def game_loop():
     for byte in info.bytes:
-        if grid.in_grid(byte.pos):
+        '''if grid.in_grid(byte.pos):
             col, row = grid.get_square(byte.pos)
             if isinstance(info.grid[row][col], Machine):
+                mach = info.grid[row][col]
+                axis = mach.output[0]
                 byte.pos = (byte.pos[0] + cf.SIZE/cf.fps,
-                            byte.pos[1] - cf.SIZE/cf.fps)
-                print(1)
+                            byte.pos[1] - cf.SIZE/cf.fps)'''
+        if grid.in_grid(byte.pos):
+            byte.pos = (byte.pos[0] + (cf.SIZE / cf.fps * byte.direction[0]),
+                        byte.pos[1] + (cf.SIZE / cf.fps * byte.direction[1]))
+
+            center = grid.snap_pos(byte.pos)
+            if center[0] - 1 <= byte.pos[0] <= center[0] + 1 and center[1] - 1 <= byte.pos[1] <= center[1] + 1:
+                col, row = grid.get_square(byte.pos)
+                obj = info.grid[row][col]
+                if obj == 'None':
+                    byte.direction = (0,0)
+                elif isinstance(obj, Conveyor):
+                    conv = obj
+                    byte.direction = conv.direction
 
     # i, j = row, col
     for mach, i, j in info.machines:
         if i > 0: ...
         if j > 0: ...
         if i < len(info.grid[0]) - 1:
-            if mach.output[1] == -1:
+            if mach.output[1] == 1:
                 if isinstance(info.grid[i+1][j], Conveyor):
                     if scene.counter == 0:
                         byte = Byte()
                         byte.pos = mach.pos
-                        if mach.output[0] == 0: axis = 1
-                        elif mach.output[0] == 1: axis = 0
-                        else: axis = None
-                        if mach.output[1] == 1: x = 1
+                        '''if mach.output[0] == 1: axis = 1
+                        elif mach.output[0] == 0: axis = 0
+                        else: axis = None'''
+                        axis = mach.output[0]
+                        '''if mach.output[1] == 1: x = 1
                         elif mach.output[1] == -1: x = -1
-                        else: x = None
+                        else: x = None'''
+                        x = mach.output[1]
                         direction = [0,0]
                         direction[axis] = x
                         byte.direction = direction
@@ -123,9 +139,9 @@ def conveyor_mode(event):
     global info
     info = Scene.active().info
     if event.type == pygame.KEYDOWN:
-        if event.key == pygame.K_UP: info.place_direction = (0,1)
+        if event.key == pygame.K_UP: info.place_direction = (0,-1)
         elif event.key == pygame.K_LEFT: info.place_direction = (-1,0)
-        elif event.key == pygame.K_DOWN: info.place_direction = (0,-1)
+        elif event.key == pygame.K_DOWN: info.place_direction = (0,1)
         elif event.key == pygame.K_RIGHT: info.place_direction = (1,0)
         print('right')
     if event.type == pygame.MOUSEBUTTONDOWN:

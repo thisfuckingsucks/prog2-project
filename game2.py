@@ -19,6 +19,8 @@ grid = Grid()
 grid.set_pos((800, cf.window_height//2))
 
 panel = RectObject(pygame.Rect(0,0,300,cf.window_height),cf.panel_color1)
+RectObject(pygame.Rect(35,40,100,100),cf.panel_color2, radius=10)
+RectObject(pygame.Rect(165,40,100,100),cf.panel_color2, radius=10)
 machine = Machine()
 machine.pos = (200,200)
 conveyor = Conveyor((600,400))

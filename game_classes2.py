@@ -67,25 +67,26 @@ class Selection:
 
 class Info:
     def __init__(self):
-        self.place_direction = None
+        self.place_direction = (0,1)
         self.grid = []
         self.machines = [] # (Machine, row, col)
         self.bytes = [] # Byte
 
 class RectObject:
-    def __init__(self, rect, color='magenta'):
+    def __init__(self, rect, color='magenta', radius=0):
         self._rect = rect
         self.color = color
+        self.radius = radius
         Scene.active().add_render(self)
 
     def render(self, screen):
-        pygame.draw.rect(screen, self.color, self._rect)
+        pygame.draw.rect(screen, self.color, self._rect, border_radius=self.radius)
 
 class Byte(RectObject):
     def __init__(self):
-        rect = pygame.Rect(0, 0, 60, 60)
+        rect = pygame.Rect(0, 0, 50, 50)
         super().__init__(rect, cf.dark_color1)
-        self.direction = None
+        self.direction = (0,0)
         self.__pos = [0,0]
         Scene.active().info.bytes.append(self)
 
@@ -160,8 +161,8 @@ class Machine(SpriteObject):
     def __init__(self, image="sprites/placeholder.png"):
         super().__init__(image)
         Scene.active().draggable.append(self)
-        self.input = (0, 1, 0)
-        self.output = (0, -1, 0)
+        self.input = (1, -1, 0)
+        self.output = (1, 1, 0)
 
     def __repr__(self):
         return '<Mach>'
@@ -172,7 +173,7 @@ class Conveyor(AnimatedSpriteObject):
         self.pos = pos
         self.speed = 1
         print('conveyor created')
-        self.direction = (0,0) # rectangular coordinates
+        self.direction = (0,0)
         self.__update_direction(dir)
 
     def __repr__(self):
@@ -180,7 +181,7 @@ class Conveyor(AnimatedSpriteObject):
 
     def __update_direction(self, x):
         if x == (1,0): angle = 90
-        elif x == (0,1): angle = 180
+        elif x == (0,-1): angle = 180
         elif x == (-1,0): angle = 270
         else: angle = 0
         for i in range(len(self.sprites)):
@@ -249,7 +250,7 @@ class Grid:
                 self.__pos[1] < pos[1] < self.bound_pos[1])
 
     def get_square(self, pos):
-        return (pos[0] - self.__pos[0]) // self.square_size, (pos[1] - self.__pos[1]) // self.square_size
+        return int((pos[0] - self.__pos[0]) // self.square_size), int((pos[1] - self.__pos[1]) // self.square_size)
     # col, row
 
     def snap_pos(self, pos):

@@ -8,6 +8,7 @@ class Config:
     grid_background = (223, 229, 237)
     text_color = (76, 90, 110)
     panel_color1 = (182, 197, 219)
+    panel_color2 = (163, 179, 204)
     dark_color1 = (96, 109, 117)
     conveyor_sprites = ["sprites/conveyor/conveyor1.png",
                         "sprites/conveyor/conveyor2.png",
