@@ -24,6 +24,7 @@ scene. Methods like rendering the scene.
 “Grid” class  
 Being the grid all objects will go on. Attributes like size and square size. Methods like grow and snap.
 
+![UML](https://github.com/thisfuckingsucks/prog2-project/blob/main/screenshots/uml.png?raw=true)
 (basic general diagram)
 
 There will also be other classes like: GameObject.
