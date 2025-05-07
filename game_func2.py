@@ -4,6 +4,7 @@ from game_classes2 import *
 from sys import exit
 
 
+
 global scene
 global grid
 global selection

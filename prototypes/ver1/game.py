@@ -1,5 +1,5 @@
 import pygame as pygame
-from config import Config as cf
+from config2 import Config as cf
 from sys import exit
 from game_classes import *
 from game_func import *

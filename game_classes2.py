@@ -1,5 +1,5 @@
 import pygame
-from config import Config as cf
+from config2 import Config as cf
 from game_tool_func import *
 
 
@@ -72,21 +72,43 @@ class Info:
         self.machines = [] # (Machine, row, col)
         self.bytes = [] # Byte
 
+class TextObject:
+    def __init__(self, text="placeholder", size=32, color=(0,0,0), pos=(0,0)):
+        self.font = pygame.font.Font(None, size)
+        self.color = color
+        self.text = text
+        self.pos = pos
+        Scene.active().add_render(self)
+
+    @property
+    def text(self):
+        return self._text
+    @text.setter
+    def text(self, text):
+        self._text = text
+        self._surface = self.font.render(self.text, False, self.color)
+
+    def render(self, screen):
+        screen.blit(self._surface,self.pos)
+
 class RectObject:
-    def __init__(self, rect, color='magenta', radius=0):
+    def __init__(self, rect, color='magenta', radius=0, border_width=0, border_color=(255,255,255)):
         self._rect = rect
         self.color = color
         self.radius = radius
+        self.border_width = border_width
+        self.border_color = border_color
         self.__pos = (0, 0)
         Scene.active().add_render(self)
 
     def render(self, screen):
         pygame.draw.rect(screen, self.color, self._rect, border_radius=self.radius)
+        if self.border_width != 0:
+            pygame.draw.rect(screen, self.border_color, self._rect, border_radius=self.radius, width=self.border_width)
 
     @property
     def pos(self):
         return self.__pos
-
     @pos.setter
     def pos(self, pos):
         self.__pos = pos
