@@ -18,17 +18,15 @@ Representing the number objects in the game to go on conveyors and be used in ma
 The conveyors that will move numbers in the game. Attributes like direction and length. Methods like one for moving all numbers on itself.  
 “Machine” class  
 The machines in the game, used for modifying numbers. Attributes like working speed and its operation function. Methods for modifying, inputting, and outputting numbers.  
-“Scene” class  
-Being the scene for use in the game. Attributes like objects in 
-scene. Methods like rendering the scene.  
+“Game” class  
+Being the scene for use in the game. Attributes being all the components in the game. Methods like rendering all components.  
 “Grid” class  
 Being the grid all objects will go on. Attributes like size and square size. Methods like grow and snap.
 
-![UML](https://github.com/thisfuckingsucks/prog2-project/blob/main/screenshots/uml.png?raw=true)
+![UML](https://github.com/thisfuckingsucks/prog2-project/blob/main/screenshots/newuml.png?raw=true)
 (basic general diagram)
 
-There will also be other classes like: GameObject.
-Other classes for ease like Display and Text should also be present.
+Each class has many attributes and methods so it's hard to show it all in one diagram
 
 
 ### 3.3 Algorithms Involved
