@@ -11,6 +11,6 @@ Output bytes to right of grid on green to score them
 Click the start button to start round  
 Machine input = blue, Machine output = red  
 Round ends when the top right clock reaches zero  
-Current byte progress is the blue number, Round goal is the red number  
-If you pass the current round you get to pick a new machine from 3 randomly generated ones  
+Current byte progress is the blue number, Round goal is the red number (reach this to win the level)  
+If you pass the current round you get to pick a new machine from 3 randomly generated ones. The grid also expands and the time limit goes up  
 click to choose an option  
