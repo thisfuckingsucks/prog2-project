@@ -9,5 +9,5 @@ arrow keys to choose a placement direction (for objects not currently on the gri
 generators and machines must output to a conveyor to work  
 Output bytes to right of grid on green to score them  
 Click the start button to start round  
-Round ends when the top right clock reaches zero
-Machine input = blue, Machine output = red
+Round ends when the top right clock reaches zero  
+Machine input = blue, Machine output = red  
