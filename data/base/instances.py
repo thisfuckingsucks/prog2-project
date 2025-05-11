@@ -1,5 +1,4 @@
-
-
+import pygame.mouse
 
 
 class ObjectInstances:
@@ -27,10 +26,23 @@ class ObjectInstances:
         for i in self.bytes:
             i.render(screen)
 
-    def update_loop(self, grid):
+    def update_loop(self, grid, info, timer):
         for b in self.bytes:
-            b.update_loop()
+            b.update_loop(grid, info)
         for m in self.machines:
             m.update_loop()
         for g in self.generators:
-            g.update_loop(grid)
+            g.update_loop(grid, timer)
+
+    def update_direction(self, angle, grid):
+        for m in self.machines:
+            if not grid.part_of_grid(m):
+                m.set_direction(angle)
+        for g in self.generators:
+            if not grid.part_of_grid(g):
+                g.set_direction(angle)
+
+    def end_round(self):
+        for m in self.machines:
+            m.end_round()
+        self.bytes.clear()

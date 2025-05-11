@@ -6,20 +6,17 @@ from data.config import color_dark2
 def angle_to_direction(angle):
     return int(math.cos(math.radians(angle))), int(- math.sin(math.radians(angle)))
 
-
-"""def set_direction(self, x):
-    if x == (1, 0):
-        angle = 90
-    elif x == (0, -1):
-        angle = 180
-    elif x == (-1, 0):
-        angle = 270
+def direction_to_angle(direction, reverse=False):
+    if reverse:
+        return int(math.degrees(math.atan2(direction[1], -direction[0])))
     else:
-        angle = 0
-    for i in range(len(self.sprites)):
-        self.sprites[i] = pygame.transform.rotate(self.sprites[i], angle)
-    self.direction = x
-    print(angle)"""
+        return int(math.degrees(math.atan2(-direction[1], direction[0])))
+
+def rotate_direction(direction, angle):
+    current = int(math.degrees(math.atan2(-direction[1], direction[0])))
+    new = current + angle
+    #print(f"new {new} = current {current} + angle {angle}")
+    return angle_to_direction(new)
 
 def load_images(images):
     surfaces = []

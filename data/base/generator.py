@@ -20,6 +20,8 @@ class Generator(SpriteObject):
         Selection.get().draggable.append(self)
         ObjectInstances.get().generators.append(self)
 
+        self.preview = False # not used but to have same attribute as machine
+
     @property
     def pos(self):
         return super().pos
@@ -28,15 +30,19 @@ class Generator(SpriteObject):
         SpriteObject.pos.fset(self, pos)
         self._text.center = self.pos
 
+    def set_direction(self, angle):
+        rotation = self.get_rotation(angle)
+        super().set_direction(angle)
+        self.output = tools.rotate_direction(self.output, rotation)
+        # print(self.output)
 
     def render(self, screen):
         super().render(screen)
         self._text.render(screen)
 
-    def update_loop(self, grid):
+    def update_loop(self, grid, time):
         if grid.part_of_grid(self):
-            # print(f"generator : {timer.Timer.get_time()%120}")
-            if timer.Timer.get_time()%120 == 0:
+            if time.timer%(config.fps*1) == 0:
                 if grid.check_square(self, conveyor.Conveyor, self.output):
                     b = byte.Byte()
                     b.pos = self.pos
