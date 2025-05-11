@@ -1,7 +1,8 @@
 import pygame
 
-from .object import RectObject, SpriteObject, TextObject
-from data.config import WINDOW_SIZE, color_mid1, color_mid2, color_light1, color_dark2
+from data.base.object import RectObject, SpriteObject, TextObject
+from data.base.generator import Generator
+from data.config import WINDOW_SIZE, color_mid1, color_mid2, color_light1, color_dark2, WHITE
 from data import tools
 
 
@@ -15,9 +16,14 @@ class SidePanel:
         s['conveyor_image'] = SpriteObject(tools.GFX["conveyor"]["conveyor1"], 85, 90)
         s['conveyor_key_button'] = RectObject(pygame.Rect(85, 125, 70, 30), color_light1, radius=5, border_width=3,
                                               border_color=color_dark2)
-        s['conveyor_key_text'] = TextObject("SPACE", 24, pos=(92, 133))
+        s['conveyor_key_text'] = TextObject("SPACE", 24, pos=(92, 133), centered=False)
 
-        s['topright_panel'] = RectObject(pygame.Rect(165, 40, 110, 110), color_mid2, radius=10)
+        s['topright_panel'] = RectObject(pygame.Rect(165, 40, 110, 110), color_mid2, radius=10, border_width=3)
+        s['generator_image'] = SpriteObject(tools.GFX["generator"]["generator1"], 215, 90)
+        s['generator_key_button'] = RectObject(pygame.Rect(255, 125, 30, 30), color_light1, radius=5, border_width=3,
+                                              border_color=color_dark2)
+        s['generator_key_text'] = TextObject("1", 28, pos=(265, 130), centered=False)
+        s['generator_key_number'] = TextObject("+1", 48, center=(215, 90), color=WHITE)
 
         s['topleft_panel'].pos = (85, 90)
         s['topright_panel'].pos = (215, 90)

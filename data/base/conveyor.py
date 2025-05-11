@@ -1,7 +1,7 @@
 import pygame, copy
 
 #from data.config import conveyor_sprites
-
+from data.base.instances import ObjectInstances
 from data.base.object import AnimatedSpriteObject
 from data.base.timer import Timer
 from data import tools
@@ -19,7 +19,8 @@ class Conveyor(AnimatedSpriteObject):
         self.speed = 1
         self.set_direction(angle)
 
-        Conveyor.__instances.append(self)
+        #Conveyor.__instances.append(self)
+        ObjectInstances.get().conveyors.append(self)
 
     def __repr__(self):
         return 'Cnvyer'

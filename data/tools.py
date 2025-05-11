@@ -1,7 +1,13 @@
-import pygame, os
+import pygame, os, math
+
+from data.config import color_dark2
 
 
-def set_direction(self, x):
+def angle_to_direction(angle):
+    return int(math.cos(math.radians(angle))), int(- math.sin(math.radians(angle)))
+
+
+"""def set_direction(self, x):
     if x == (1, 0):
         angle = 90
     elif x == (0, -1):
@@ -13,7 +19,7 @@ def set_direction(self, x):
     for i in range(len(self.sprites)):
         self.sprites[i] = pygame.transform.rotate(self.sprites[i], angle)
     self.direction = x
-    print(angle)
+    print(angle)"""
 
 def load_images(images):
     surfaces = []
@@ -42,7 +48,7 @@ def load_all_gfx(directory,colorkey=(255,0,255),accept=(".png",".jpg",".bmp")):
     return graphics
 
 def graphics_from_directories(directories):
-    base_path = os.path.join(os.pardir,"resources", "sprites")
+    base_path = os.path.join("resources", "sprites")
     GFX = {}
     for directory in directories:
         path = os.path.join(base_path, directory)
@@ -50,6 +56,13 @@ def graphics_from_directories(directories):
     return GFX
 
 
-_SUB_DIRECTORIES = ["conveyor", "other"]
+
+_SUB_DIRECTORIES = ["conveyor", "other", "generator", "machine"]
 GFX = graphics_from_directories(_SUB_DIRECTORIES)
 
+
+# additional generator graphic
+__rect = GFX["generator"]["generator1"].get_rect()
+def __draw_gen_outline(surface):
+    pygame.draw.rect(surface, color_dark2, __rect, width=8)
+__draw_gen_outline(GFX["generator"]["generator1"])

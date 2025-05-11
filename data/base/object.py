@@ -4,11 +4,13 @@ from data.base import timer
 
 
 class TextObject:
-    def __init__(self, text="placeholder", size=32, color=(0,0,0), pos=(0,0)):
-        self.font = pygame.font.Font(None, size)
+    def __init__(self, text="placeholder", size=32, color=(0,0,0), pos=(0,0), centered=True, center=(0,0), font=None):
+        self.font = pygame.font.SysFont(font, size)
         self.color = color
         self.text = text
         self.pos = pos
+        self.center = center
+        self.centered = centered
         #Scene.active().add_render(self)
 
     @property
@@ -18,9 +20,21 @@ class TextObject:
     def text(self, text):
         self._text = text
         self._surface = self.font.render(self.text, False, self.color)
+        self._rect = self._surface.get_rect()
+
+    @property
+    def center(self):
+        return self._rect.center
+    @center.setter
+    def center(self, pos):
+        self._rect.center = pos
 
     def render(self, screen):
-        screen.blit(self._surface,self.pos)
+        if self.centered:
+            screen.blit(self._surface, self._rect)
+            #print(self._rect.center)
+        else:
+            screen.blit(self._surface,self.pos)
 
 class RectObject:
     def __init__(self, rect, color='magenta', radius=0, border_width=0, border_color=(255,255,255),

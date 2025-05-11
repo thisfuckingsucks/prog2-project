@@ -1,5 +1,5 @@
 import pygame
-from config2 import Config as cf
+from prototypes.ver2.config2 import Config as cf
 from game_display import Display
 
 

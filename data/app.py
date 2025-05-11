@@ -33,7 +33,6 @@ class App:
         while True:
             screen.fill(color_light0)
 
-            #app_loop()
             self.event_loop()
             self.update_loop()
 
@@ -41,5 +40,3 @@ class App:
 
             pygame.display.update()
             clock.tick(fps)
-
-App().run()

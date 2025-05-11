@@ -1,4 +1,4 @@
-
+from data.config import fps
 
 
 class Timer:
@@ -11,5 +11,5 @@ class Timer:
     @staticmethod
     def count():
         Timer.__timer += 1
-        if Timer.__timer >= 60:
+        if Timer.__timer >= fps*10:
             Timer.__timer = 0

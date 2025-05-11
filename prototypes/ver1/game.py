@@ -1,10 +1,4 @@
-import pygame as pygame
-from config2 import Config as cf
-from sys import exit
-from game_classes import *
 from game_func import *
-
-from game_display import Display
 
 pygame.init()
 screen = pygame.display.set_mode((cf.window_width, cf.window_height))

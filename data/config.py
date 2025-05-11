@@ -1,6 +1,8 @@
 WINDOW_SIZE = (1280, 720)
 fps = 60
 SIZE = 80
+WHITE = (255, 255, 255)
+COOLDOWN_ALPHA = 80
 background_color = (206, 216, 235)
 color_light0 = (206, 216, 235)
 grid_line = (182, 193, 212)
@@ -17,6 +19,8 @@ color_dark1 = (96, 109, 117)
 dark_color2 = (74, 87, 99)
 color_dark2 = (74, 87, 99)
 generator1 = (223, 226, 245)
+output_red = (255, 74, 101)
+input_blue = (56, 149, 255)
 conveyor_sprites = ["sprites/conveyor/conveyor1.png",
                     "sprites/conveyor/conveyor2.png",
                     "sprites/conveyor/conveyor3.png",

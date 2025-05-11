@@ -40,16 +40,17 @@ class Grid:
         for i, row in enumerate(self.data):
             for j, square in enumerate(row):
                 if obj is square:
-                    return i, j
-        raise ValueError("object not found in grid")
+                    return j, i
+        raise ValueError("object not found in grid") # col, row
 
     def check_square(self, obj, obj_class, check):
-        row, col = self.get_index(obj)
-        target = (row + check[0], col + check[1])
-        if (target[0] < 0 or target[0] >= len(self.size[1]) or
-            target[1] < 0 or target[1] >= len(self.size[0])):
+        # (0,1)
+        col, row = self.get_index(obj)
+        target = (col + check[0], row + check[1])
+        if (target[0] < 0 or target[0] >= self.size[0] or
+            target[1] < 0 or target[1] >= self.size[1]):
             return False
-        return isinstance(self.__data[row][col], obj_class)
+        return isinstance(self.__data[target[1]][target[0]], obj_class)
 
     def __calculate_bound(self):
         self.bound_size = (self.square_size * self.size[0], self.square_size * self.size[1])
@@ -123,3 +124,7 @@ class Grid:
             self.__data[row][col] = obj
         self.display_data()
         #print(self.__data)
+
+    def object_at(self, pos):
+        col, row = self.get_square(pos)
+        return self.__data[row][col]
