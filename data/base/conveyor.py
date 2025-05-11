@@ -26,18 +26,8 @@ class Conveyor(AnimatedSpriteObject):
         return 'Cnvyer'
 
     def update(self):
-        self.current = Timer.get_time() % 10
+        self.current = Timer.get_animation_time() % 10
         self.image = self.sprites[self.current]
-
-    """def __update_direction(self, x):
-        if x == (1,0): angle = 90
-        elif x == (0,-1): angle = 180
-        elif x == (-1,0): angle = 270
-        else: angle = 0
-        for i in range(len(self.sprites)):
-            self.sprites[i] = pygame.transform.rotate(self.sprites[i], angle)
-        self.direction = x
-        print(angle)"""
 
     @staticmethod
     def render_all(screen):

@@ -1,4 +1,4 @@
-from data.config import SIZE, color_light1, color_mid3
+from data.config import SIZE, color_light1, color_mid3, goal_green, goal_width
 import pygame
 
 
@@ -11,8 +11,9 @@ class Grid:
 
     def __init__(self, size=(3,3)):
         super().__init__()
+        Grid.__instance = self
+
         self.size = list(size)
-        #self.__data = Scene.active().info.grid
         self.__data = []
         for i in range(size[1]):
             self.__data.append(['None'] * size[0])
@@ -21,10 +22,6 @@ class Grid:
 
         self.center_pos = (0,0)
         self.__calculate_bound()
-
-        #Scene.active().add_render(self)
-        #Scene.get('game').components['grid'] = self
-        Grid.__instance = self
 
     @property
     def data(self):
@@ -60,6 +57,8 @@ class Grid:
     def set_pos(self, pos):
         self.center_pos = pos
         self.__calculate_bound()
+        """self.goal.update(self.bound_pos[0] + self.grid_line_width, self.__pos[1],
+                         goal_width, SIZE*self.size[1] + self.grid_line_width)"""
 
     def render(self, screen):
         # Draw background color
@@ -74,11 +73,27 @@ class Grid:
                                   # Makes grid lines same size
                 pygame.draw.rect(screen, color_mid3, tmp, self.grid_line_width)
 
+        pygame.draw.rect(screen, goal_green, pygame.Rect(self.bound_pos[0] + self.grid_line_width, self.__pos[1],
+                                                         goal_width, SIZE*self.size[1] + self.grid_line_width))
+
     def grow(self, side):
-        if side == 0: self.size[0] += 1
-        elif side == 1: self.size[1] += 1
-        else: raise ValueError
+        if side == 0:
+            self.size[0] += 1
+            for row in self.__data:
+                row += ['None']
+        elif side == 1:
+            self.size[1] += 1
+            self.__data.append(['None'] * self.size[0])
+        else:
+            raise ValueError
         self.__calculate_bound()
+        for row in self.__data:
+            for obj in row:
+                if obj != 'None':
+                    obj.pos = self.snap_pos((obj.pos[0]-10, obj.pos[1]-10))
+
+    def end_round(self, info):
+        self.grow(info.next_grow)
 
     def in_grid(self, pos):
         return (self.__pos[0] < pos[0] < self.bound_pos[0] and

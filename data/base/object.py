@@ -1,14 +1,15 @@
 import pygame
 from data import tools
 from data.base import timer
+from data.config import SIZE
 
 
 class TextObject:
     def __init__(self, text="placeholder", size=32, color=(0,0,0), pos=(0,0), centered=True, center=(0,0), font=None):
         self.font = pygame.font.SysFont(font, size)
         self.color = color
-        self.text = text
         self.pos = pos
+        self.text = text
         self.center = center
         self.centered = centered
         #Scene.active().add_render(self)
@@ -18,20 +19,23 @@ class TextObject:
         return self._text
     @text.setter
     def text(self, text):
+        if isinstance(text, int):
+            text = str(text)
         self._text = text
         self._surface = self.font.render(self.text, False, self.color)
-        self._rect = self._surface.get_rect()
+        self.rect = self._surface.get_rect()
+        self.center = self.pos
 
     @property
     def center(self):
-        return self._rect.center
+        return self.rect.center
     @center.setter
     def center(self, pos):
-        self._rect.center = pos
+        self.rect.center = pos
 
     def render(self, screen):
         if self.centered:
-            screen.blit(self._surface, self._rect)
+            screen.blit(self._surface, self.rect)
             #print(self._rect.center)
         else:
             screen.blit(self._surface,self.pos)
@@ -39,22 +43,22 @@ class TextObject:
 class RectObject:
     def __init__(self, rect, color='magenta', radius=0, border_width=0, border_color=(255,255,255),
                  outline_width=0, outline_color=(0,0,0)):
-        self._rect = rect
+        self.rect = rect
         self.color = color
         self.radius = radius
         self.border_width = border_width
         self.border_color = border_color
         self._outline = rect.copy()
         self._outline.inflate(outline_width * 2, outline_width * 2)
-        self._outline_width = outline_width
+        self.outline_width = outline_width
         self.outline_color = outline_color
         self.__pos = (0, 0)
         #Scene.active().add_render(self)
 
     def render(self, screen):
-        pygame.draw.rect(screen, self.color, self._rect, border_radius=self.radius)
+        pygame.draw.rect(screen, self.color, self.rect, border_radius=self.radius)
         if self.border_width != 0:
-            pygame.draw.rect(screen, self.border_color, self._rect, border_radius=self.radius, width=self.border_width)
+            pygame.draw.rect(screen, self.border_color, self.rect, border_radius=self.radius, width=self.border_width)
         if self._outline_width != 0:
             pygame.draw.rect(screen, self.outline_color, self._outline, border_radius=self.radius, width=self._outline_width)
 
@@ -64,15 +68,24 @@ class RectObject:
     @pos.setter
     def pos(self, pos):
         self.__pos = pos
-        self._rect.center = (int(pos[0]), int(pos[1]))
+        self.rect.center = (int(pos[0]), int(pos[1]))
         self._outline.center = (int(pos[0]), int(pos[1]))
+
+    @property
+    def topleft(self):
+        return self.rect.topleft
+    @topleft.setter
+    def topleft(self, pos):
+        self.rect.topleft = pos
+        self.__pos = self.rect.center
+        self._outline.topleft = pos
 
     @property
     def outline_width(self):
         return self._outline_width
     @outline_width.setter
     def outline_width(self, width):
-        self._outline = self._rect.copy()
+        self._outline = self.rect.copy()
         self._outline.inflate_ip(width * 2, width * 2)
         self._outline_width = width
 
@@ -106,12 +119,18 @@ class SpriteObject(GameObject):
         else: raise ValueError
 
     def set_direction(self, angle):
-        rotation = angle - self.angle
+        rotation = self.get_rotation(angle)
         self.image = pygame.transform.rotate(self.image, rotation)
         self.angle = angle
 
+    def get_rotation(self, angle):
+        return angle - self.angle
+
     def render(self, screen):
         screen.blit(self.image, self.rect)
+
+    def get_bound(self):
+        return (self.pos[0] - SIZE//2, self.pos[0] + SIZE//2), (self.pos[1] - SIZE//2, self.pos[1] + SIZE//2)
 
 class AnimatedSpriteObject(SpriteObject):
     def __init__(self, sprites):
@@ -128,14 +147,7 @@ class AnimatedSpriteObject(SpriteObject):
         self.angle = angle
 
     def update(self):
-        """self.__counter += 1
-        if self.__counter >= self.speed:
-            self.__counter = 0
-
-            self.current += 1
-            if self.current >= len(self.sprites):
-                self.current = 0"""
-        self.current = timer.Timer.get_time() % 10
+        self.current = timer.Timer.get_animation_time() % 10
         self.image = self.sprites[self.current]
 
     def render(self, screen):
