@@ -8,7 +8,7 @@ The game is reminiscent of “Factorio” and other factory-like games. However,
 
 ## 3. Programming Development
 ### 3.1 Game Concept
-The game operates on a small grid system you have to build on. “Generators” will make numbers and then “machines” will apply operations like multiplication, with traversal using conveyor systems, each having their own size required in the grid. The game will provide a random assortment of machines in each level like a roguelike game (still unsure about specifics). A number goal must be reached to complete the level with a higher goal in the next. However, there is only limited space to place down machines, so you must design layouts carefully. Machines should also be configurable with input/output sides to meet your design needs. The selling point of the game is for those who like the intricate designing mechanics of factory-like games combined with the randomness of roguelike games.
+The game operates on a small grid system you have to build on. “Generators” will make numbers and then “machines” will apply operations like multiplication, with traversal using conveyor systems, each taking up required space in the grid. The game will provide a random assortment of machines in each level like a roguelike game. A number goal must be reached to complete the level with a higher goal in the next. However, there is only limited space to place down machines, so you must design layouts carefully.
 
 ### 3.2  Object-Oriented Programming Implementation
 Classes that should be used in mechanics include:  
@@ -27,7 +27,6 @@ Being the grid all objects will go on. Attributes like size and square size. Met
 (basic general diagram)
 
 Each class has many attributes and methods so it's hard to show it all in one diagram
-
 
 ### 3.3 Algorithms Involved
 The movement of number objects in the game will be logic based, using the machines. Such as outputting in different directions if a number is greater or smaller than a specified value. The game itself is basically building your own algorithm using provided logical operators. There is no inherent complicated algorithm use though.
@@ -86,6 +85,25 @@ Milestone goals:
 23 April 75%: complete additional game systems  
 11 May 100%: make additional design choices for completion  
 
-## 6. Document version
-Version: 5.0  
-Date: 16 April 2025
+## INSTALLATION
+download the zip  
+run the bytefactory.py file in the project file  
+preferably in an IDE since the file needs to be aware of every other file in the project  
+do not change the order of files and make sure everything is present and can see each other  
+
+## CONTROLS  
+Mouse to drag any draggable objects (make sure you're not in conveyor or generator mode)  
+Spacebar to toggle conveyor mode, 1 to toggle generator mode  
+left click on grid to place, right click to remove  
+arrow keys to choose a placement direction (for objects not currently on the grid)  
+generators and machines must output to a conveyor to work  
+Machine input = blue, Machine output = red  
+Output bytes to right of grid on green to score them  
+Click the start button to start round  
+Round ends when the top right clock reaches zero  
+Current byte progress is the blue number, Round goal is the red number (reach this to win the level)  
+If you pass the current round you get to pick a new machine from 3 randomly generated ones. The grid also expands and the time limit goes up  
+click to choose an new machine (you only get one)
+
+## VIDEO
+https://youtu.be/sDI-7hFNubs
