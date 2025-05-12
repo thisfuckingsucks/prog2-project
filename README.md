@@ -1,11 +1,11 @@
 # ByteFactory
-##INSTALLATION  
+## INSTALLATION  
 download the zip  
 run the __bytefactory.py__ file in the project file  
 preferably in an IDE since the file needs to be aware of every other file in the project  
 do not change the order of files and make sure everything is present and can see each other  
 
-##CONTROLS:  
+## CONTROLS:  
 Mouse to drag any draggable objects (make sure you're not in conveyor or generator mode)  
 Spacebar to toggle conveyor mode, 1 to toggle generator mode  
 left click on grid to place, right click to remove  
